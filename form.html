@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Information Form</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 500px;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #444;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .form-sum h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-sum {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        #cart-summary {
+            margin: 1rem 0;
+            padding: 1rem;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.5;
+            overflow-y: auto;
+            max-height: 200px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        #cart-summary::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #cart-summary::-webkit-scrollbar-thumb {
+            background-color: #007bff;
+            border-radius: 4px;
+        }
+
+        #cart-summary::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+
+        #total-amount {
+            display: none;
+            /* Hidden input should not visually impact the form */
+        }
+
+        #cart-data {
+            display: none;
+            /* Hidden input should not visually impact the form */
+        }
+
+        .form-group label:hover {
+            color: #007bff;
+            /* Add a subtle hover effect */
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+            outline: none;
+            background-color: #fff;
+        }
+
+        .form-group input:hover,
+        .form-group select:hover,
+        .form-group textarea:hover {
+            background-color: #f1f1f1;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            background: #007bff;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        @media (max-width: 600px) {
+            .form-group .half-width {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <h2>Shipping Information</h2>
+        <form id="order-form" action="https://api.web3forms.com/submit" method="POST">
+            <!-- Web3Forms Access Key -->
+            <input type="hidden" name="access_key" value="36b31cb0-0d93-49f3-8c4f-0c99ae5a038b">
+
+            <!-- User Information -->
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="Your name">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="email@example.com">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required placeholder="123-456-7890">
+            </div>
+            <div class="form-group">
+                <label for="address">Street Address</label>
+                <input type="text" id="address" name="address" required placeholder="123 Main St">
+            </div>
+            <div class="form-group">
+                <label for="province">Province</label>
+                <select id="province" name="province" required>
+                    <option value="">Select Province</option>
+                    <option value="Sindh">Sindh</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Balochistan">Balochistan</option>
+                    <option value="KPK">KPK</option>
+                    <option value="GB">GB</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" required placeholder="City">
+            </div>
+            <div class="form-group">
+                <label for="zip">Zip Code</label>
+                <input type="text" id="zip" name="zip" required placeholder="ZIP Code">
+            </div>
+
+            <!-- Cart and Subtotal Information -->
+            <div class="form-sum">
+                <h3>Order Summary</h3>
+                <div id="cart-summary"></div>
+                <input type="hidden" id="cart-data" name="cart_data">
+                <input type="hidden" id="total-amount" name="total_amount">
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Order</button>
+        </form>
+    </div>
+
+    <script>
+        // Retrieve cart data and subtotal from localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+        // Populate cart summary
+        const cartSummary = document.getElementById('cart-summary');
+        cart.forEach(item => {
+            const div = document.createElement('div');
+            div.textContent = `${item.name} (x${item.quantity}) - Rs.${item.price * item.quantity}`;
+            cartSummary.appendChild(div);
+        });
+
+        // Display total amount
+        const totalDiv = document.createElement('div');
+        totalDiv.textContent = `Total: Rs.${total}`;
+        cartSummary.appendChild(totalDiv);
+
+        // Set hidden fields for cart data and subtotal
+        document.getElementById('cart-data').value = JSON.stringify(cart);
+        document.getElementById('total-amount').value = total;
+    </script>
+
+
+</body>
+
+</html>
